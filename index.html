@@ -31,15 +31,16 @@
                 linear-gradient(var(--grid-line) 1px, transparent 1px),
                 linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
             background-size: 50px 50px;
+            padding-bottom: 80px; /* Espacio para que el footer no choque con la nav móvil */
         }
 
-        /* --- NAVEGACIÓN --- */
+        /* --- NAVEGACIÓN PC --- */
         .navbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 5%;
-            background: rgba(8, 8, 8, 0.9);
+            padding: 15px 5%;
+            background: rgba(8, 8, 8, 0.95);
             border-bottom: 1px solid var(--grid-line);
             backdrop-filter: blur(15px);
             position: fixed;
@@ -51,7 +52,7 @@
         .brand { font-family: var(--font-race); font-size: 1.4rem; letter-spacing: -1px; text-decoration: none; color: white; }
         .brand span { color: var(--prime-red); }
 
-        .menu { display: flex; list-style: none; gap: 30px; }
+        .menu { display: flex; list-style: none; gap: 25px; align-items: center; }
         .menu a { text-decoration: none; color: #aaa; font-weight: 500; text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem; transition: 0.3s; }
         .menu a:hover { color: var(--prime-red); }
 
@@ -65,7 +66,41 @@
             text-transform: uppercase;
             cursor: pointer;
             clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
+            transition: 0.3s;
         }
+        .btn-join:hover { background: var(--prime-red); color: white; }
+
+        /* --- NAVEGACIÓN MÓVIL (Bottom Bar) --- */
+        .mobile-nav {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background: rgba(12, 12, 12, 0.98);
+            border-top: 1px solid var(--grid-line);
+            backdrop-filter: blur(15px);
+            z-index: 2000;
+            justify-content: space-around;
+            padding: 10px 0;
+            box-shadow: 0 -10px 30px rgba(0,0,0,0.5);
+        }
+
+        .mobile-nav a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            font-family: var(--font-race);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            opacity: 0.7;
+        }
+        
+        .mobile-nav a.active-btn { opacity: 1; color: var(--prime-red); }
+        .mobile-nav i { font-size: 1.2rem; margin-bottom: 2px; }
 
         /* --- HERO --- */
         .hero {
@@ -76,16 +111,17 @@
             justify-content: center;
             align-items: center;
             text-align: center;
+            padding: 0 20px;
         }
 
         .video-wrapper { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; }
         .video-wrapper video { width: 100%; height: 100%; object-fit: cover; }
         .video-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, var(--carbon-black) 100%); z-index: -1; }
 
-        .hero h1 { font-family: var(--font-race); font-size: 7vw; text-transform: uppercase; line-height: 0.85; position: relative; z-index: 10; }
+        .hero h1 { font-family: var(--font-race); font-size: clamp(2.5rem, 7vw, 7vw); text-transform: uppercase; line-height: 0.85; position: relative; z-index: 10; }
         .hero h1 span { color: var(--prime-red); }
 
-        /* --- DASHBOARD MAIN EVENT --- */
+        /* --- DASHBOARD --- */
         .dashboard {
             width: 90%;
             max-width: 1200px;
@@ -98,35 +134,12 @@
             margin: -80px auto 40px;
             position: relative;
             z-index: 110;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
         }
+        .dashboard::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--prime-red); }
 
-        .dashboard::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; background: var(--prime-red); }
-
-        .data-block { padding: 0 20px; border-left: 1px solid var(--grid-line); }
-        .label { font-size: 0.75rem; text-transform: uppercase; color: #666; letter-spacing: 2px; }
-        .value { font-size: 2rem; font-weight: 700; color: #fff; line-height: 1.1; }
-
-        /* --- INCOMING EVENTS --- */
-        .incoming-section {
-            width: 90%;
-            max-width: 1200px;
-            margin: 40px auto;
-            position: relative;
-            z-index: 100;
-        }
-
-        .section-header {
-            font-family: var(--font-race);
-            font-size: 1.2rem;
-            text-transform: uppercase;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            letter-spacing: 2px;
-        }
-
+        /* --- EVENTS --- */
+        .incoming-section { width: 90%; max-width: 1200px; margin: 40px auto; position: relative; z-index: 100; }
+        .section-header { font-family: var(--font-race); font-size: 1.2rem; text-transform: uppercase; margin-bottom: 20px; display: flex; align-items: center; gap: 15px; }
         .section-header::after { content: ''; flex-grow: 1; height: 1px; background: var(--prime-red); opacity: 0.5; }
 
         .event-row {
@@ -137,119 +150,31 @@
             background: var(--carbon-fibre);
             border: 1px solid var(--grid-line);
             margin-bottom: 8px;
-            transition: 0.3s;
         }
 
-        .event-row:hover { border-color: var(--prime-red); transform: translateX(5px); background: #1a1a1a; }
-
-        .date-box { text-align: center; border-right: 1px solid var(--grid-line); }
-        .date-box .day { display: block; font-size: 1.4rem; font-weight: 900; color: var(--data-white); }
-        .date-box .month { font-size: 0.7rem; text-transform: uppercase; color: var(--prime-red); font-weight: 700; }
-
-        .event-info { padding-left: 25px; }
-        .event-info h4 { font-family: var(--font-race); font-size: 1rem; text-transform: uppercase; }
-        .event-info span { font-size: 0.75rem; color: #777; font-weight: 600; }
-
-        .status-box { text-align: right; padding-right: 25px; }
-        .status-tag { font-size: 0.65rem; padding: 2px 10px; border: 1px solid #444; color: #888; font-weight: 700; }
-        .status-tag.tbc { border-color: var(--tbc-amber); color: var(--tbc-amber); }
-
-        .btn-details {
-            background: transparent;
-            border: 1px solid #444;
-            color: white;
-            padding: 8px;
-            font-size: 0.7rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-        .btn-details:hover { background: var(--prime-red); border-color: var(--prime-red); }
-
-        /* --- CARDS CATEGORÍAS --- */
-        .series { padding: 40px 5% 100px; }
-        .series-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
-        
-        .series-card {
-            height: 450px;
-            background-size: cover;
-            background-position: center;
-            border: 1px solid var(--grid-line);
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            padding: 40px;
-            position: relative;
-            text-decoration: none;
-            overflow: hidden;
-            transition: 0.4s;
-        }
-
-        /* Capa oscura para legibilidad */
-        .series-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 100%);
-            z-index: 1;
-        }
-
-        .series-card:hover { transform: translateY(-10px); border-color: var(--prime-red); }
-        .series-card h3 { font-family: var(--font-race); font-size: 2.2rem; color: #fff; text-transform: uppercase; z-index: 2; position: relative; }
-        .series-card p { color: #ccc; z-index: 2; margin-top: 10px; font-size: 1.1rem; position: relative; }
-        .badge { background: var(--prime-red); color: white; padding: 4px 12px; font-weight: 700; font-size: 0.7rem; text-transform: uppercase; margin-bottom: 10px; z-index: 2; position: relative; width: fit-content; }
+        /* --- SERIES CARDS --- */
+        .series { padding: 40px 5% 60px; }
+        .series-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; }
+        .series-card { height: 450px; background-size: cover; background-position: center; border: 1px solid var(--grid-line); display: flex; flex-direction: column; justify-content: flex-end; padding: 40px; position: relative; text-decoration: none; overflow: hidden; }
+        .series-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 100%); z-index: 1; }
+        .series-card h3, .series-card p, .badge { position: relative; z-index: 2; }
+        .badge { background: var(--prime-red); color: white; padding: 4px 12px; font-weight: 700; font-size: 0.7rem; text-transform: uppercase; margin-bottom: 10px; width: fit-content; }
 
         /* --- FOOTER --- */
-        .main-footer {
-            background: var(--carbon-fibre);
-            border-top: 1px solid var(--grid-line);
-            padding: 60px 5% 30px;
-            text-align: center;
-        }
+        .main-footer { background: var(--carbon-fibre); border-top: 1px solid var(--grid-line); padding: 60px 5% 40px; text-align: center; }
 
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .footer-logo {
-            font-family: var(--font-race);
-            font-size: 1.2rem;
-            color: #fff;
-            text-decoration: none;
-        }
-        .footer-logo span { color: var(--prime-red); }
-
-        .copyright {
-            font-size: 0.8rem;
-            color: #555;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-weight: 500;
-        }
-
-        .footer-line {
-            width: 50px;
-            height: 2px;
-            background: var(--prime-red);
-            margin: 10px 0;
-        }
-
-       
-
-
-
-
+        /* --- MEDIA QUERIES --- */
         @media (max-width: 900px) {
-            .dashboard, .event-row { grid-template-columns: 1fr; text-align: center; }
-            .date-box, .event-info, .status-box { border: none; padding: 10px 0; }
-            .dashboard { margin-top: 20px; }
-            .series-grid { grid-template-columns: 1fr; }
+            .navbar .menu, .navbar .btn-join { display: none; } /* Ocultar menú y botón superior */
+            .mobile-nav { display: flex; } /* Mostrar barra inferior */
+            
+            .dashboard { grid-template-columns: 1fr; margin-top: 20px; padding: 30px 20px; }
+            .data-block { border-left: none; border-top: 1px solid var(--grid-line); padding: 15px 0; }
+            
+            .event-row { grid-template-columns: 70px 1fr; padding: 15px; }
+            .status-box, .btn-details-col { grid-column: 1 / span 2; margin-top: 10px; }
+            
+            .hero h1 { font-size: 3.2rem; }
         }
     </style>
 </head>
@@ -262,8 +187,16 @@
             <li><a href="#">Standings</a></li>
             <li><a href="#">Reglamento</a></li>
             <li><a href="#">Paddock</a></li>
+            <li><button class="btn-join">Login Piloto</button></li>
         </ul>
-        <button class="btn-join">Login Piloto</button>
+    </nav>
+
+    <nav class="mobile-nav">
+        <a href="#">Series</a>
+        <a href="#">Stats</a>
+        <a href="#" class="active-btn" style="color: var(--prime-red); border: 1px solid var(--prime-red); padding: 5px 10px; clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);">LOGIN</a>
+        <a href="#">Reglas</a>
+        <a href="#">Paddock</a>
     </nav>
 
     <header class="hero">
@@ -271,97 +204,63 @@
             <video autoplay muted loop playsinline><source src="img/motorsport.mkv" type="video/mp4"></video>
         </div>
         <div class="video-overlay"></div>
-        <p style="letter-spacing: 12px; color: var(--prime-red); font-weight: 700; margin-bottom: 10px; z-index: 10; text-transform: uppercase;">Elite Competition</p>
+        <p style="letter-spacing: 12px; color: var(--prime-red); font-weight: 700; margin-bottom: 10px; z-index: 10; text-transform: uppercase; font-size: 0.8rem;">Elite Competition</p>
         <h1>PRIME <span>V</span> RACING</h1>
     </header>
 
     <section class="dashboard">
         <div class="race-title">
-            <div class="badge">Main Event</div>
-            <h2 style="font-family: var(--font-race); margin-top: 10px;">GP de Spa-Francorchamps</h2>
+            <div class="badge">Next Event</div>
+            <h2 style="font-family: var(--font-race); margin-top: 10px; font-size: 1.2rem;">GP de Spa-Francorchamps</h2>
             <p style="color: #666; font-weight: 600;">Bélgica | F1 Series Pro</p>
         </div>
-        <div class="data-block">
-            <span class="label">Local Date</span>
+        <div class="data-block" style="border-left: 1px solid var(--grid-line); padding-left: 20px;">
+            <span class="label">Date</span>
             <div class="value" id="local-date">--/--</div>
         </div>
-        <div class="data-block">
+        <div class="data-block" style="border-left: 1px solid var(--grid-line); padding-left: 20px;">
             <span class="label">Local Time</span>
             <div class="value" id="local-time">--:--</div>
-            <span id="user-timezone" style="font-size: 0.65rem; color: var(--prime-red); font-weight: 700; margin-top: 5px; display: block;">DETECTING...</span>
         </div>
     </section>
 
     <section class="incoming-section">
-        <h3 class="section-header">Incoming Events</h3>
-        
+        <h3 class="section-header">Upcoming Events</h3>
         <div class="event-row">
-            <div class="date-box">
-                <span class="day">15</span>
-                <span class="month">Nov</span>
-            </div>
-            <div class="event-info">
-                <h4>Interlagos Circuit</h4>
-                <span>GT Masters / GT3 Class</span>
-            </div>
-            <div class="status-box">
-                <span class="status-tag tbc">TBC</span>
-            </div>
-            <button class="btn-details">Details</button>
-        </div>
-
-        <div class="event-row">
-            <div class="date-box">
-                <span class="day">22</span>
-                <span class="month">Nov</span>
-            </div>
-            <div class="event-info">
-                <h4>Monza Autodromo</h4>
-                <span>Open Wheels / F1 Series</span>
-            </div>
-            <div class="status-box">
-                <span class="status-tag tbc">TBC</span>
-            </div>
-            <button class="btn-details">Details</button>
+            <div style="text-align:center;"><span style="display:block; font-size:1.4rem; font-weight:900;">15</span><span style="color:var(--prime-red); font-weight:700; font-size:0.7rem; text-transform:uppercase;">Nov</span></div>
+            <div style="padding-left:25px;"><h4>Interlagos Circuit</h4><span style="font-size:0.75rem; color:#666;">GT Masters / GT3</span></div>
+            <div style="text-align:right;"><span style="font-size:0.65rem; padding:2px 10px; border:1px solid var(--tbc-amber); color:var(--tbc-amber); font-weight:700;">TBC</span></div>
+            <div style="text-align:right;"><button style="background:transparent; border:1px solid #444; color:white; padding:5px 15px; font-size:0.7rem; font-weight:700; cursor:pointer;">Details</button></div>
         </div>
     </section>
 
     <section class="series">
         <div class="series-grid">
-            
             <a href="#" class="series-card" style="background-image: url('img/f1.webp');">
                 <div class="badge">Formula 1</div>
                 <h3>Open Wheels</h3>
                 <p>La máxima precisión en F1 2024.</p>
             </a>
-
             <a href="#" class="series-card" style="background-image: url('img/gt7.avif');">
                 <div class="badge" style="background: var(--gt-blue);">Gran Turismo 7</div>
                 <h3>GT Masters</h3>
-                <p>Resistencia y estrategia en GT3.</p>
+                <p>Resistencia en GT3.</p>
             </a>
-
         </div>
     </section>
-<footer class="main-footer">
-        <div class="footer-content">
-            <a href="#" class="footer-logo">PRIME<span>V</span> RACING</a>
-            <div class="footer-line"></div>
-            <p class="copyright">&copy; 2026 Prime Virtual Racing. All rights reserved.</p>
-        </div>
-    </footer>
 
+    <footer class="main-footer">
+        <p style="font-family: var(--font-race); color: white; margin-bottom: 10px;">PRIME<span>V</span> RACING</p>
+        <p style="font-size:0.7rem; color:#555; letter-spacing:2px;">&copy; 2026 ELITE SIMRACING LEAGUE. ALL RIGHTS RESERVED.</p>
+    </footer>
 
     <script>
         function updateTime() {
             const raceDate = new Date('2026-04-25T18:30:00Z');
             const timeOpts = { hour: '2-digit', minute: '2-digit', hour12: false };
             const dateOpts = { day: '2-digit', month: '2-digit', year: 'numeric' };
-            const zone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-            
             document.getElementById('local-time').innerText = raceDate.toLocaleTimeString([], timeOpts) + 'H';
             document.getElementById('local-date').innerText = raceDate.toLocaleDateString([], dateOpts);
-            document.getElementById('user-timezone').innerText = 'ZONE: ' + zone.toUpperCase().replace('_', ' ');
         }
         window.onload = updateTime;
     </script>
